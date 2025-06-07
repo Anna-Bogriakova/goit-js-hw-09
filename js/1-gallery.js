@@ -1,46 +1,10 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const galleryItems = [
-  {
-    preview: 'https://placehold.co/300x200',
-    original: 'https://placehold.co/1200x800',
-    description: 'Sample image 1',
-  },
-  {
-    preview: 'https://placehold.co/300x200',
-    original: 'https://placehold.co/1200x800',
-    description: 'Sample image 2',
-  },
-];
-
-const galleryContainer = document.querySelector('.gallery');
-const galleryMarkup = createGalleryMarkup(galleryItems);
-galleryContainer.innerHTML = galleryMarkup;
-
-function createGalleryMarkup(items) {
-  return items
-    .map(
-      ({ preview, original, description }) => `
-    <li class="gallery-item">
-      <a class="gallery-link" href="${original}">
-        <img class="gallery-image" src="${preview}" alt="${description}" />
-      </a>
-    </li>
-  `
-    )
-    .join('');
-}
-
-new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-});
-
 const images = [
   {
     preview:
-      'https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820__340.jpg',
+      'https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820__480.jpg',
     original:
       'https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820_1280.jpg',
     description: 'Hokkaido Flower',
@@ -105,38 +69,20 @@ const images = [
 
 const galleryContainer = document.querySelector('.gallery');
 
-const galleryMarkup = images
+const galleryMarkup = galleryItems
   .map(
     ({ preview, original, description }) => `
-  <li class="gallery-item">
-    <a class="gallery-link" href="${original}">
-      <img
-        class="gallery-image"
-        src="${preview}"
-        data-source="${original}"
-        alt="${description}"
-      />
-    </a>
-  </li>
-`
+    <li class="gallery-item">
+      <a class="gallery-link" href="${original}">
+        <img class="gallery-image" src="${preview}" alt="${description}" />
+      </a>
+    </li>`
   )
   .join('');
 
 galleryContainer.innerHTML = galleryMarkup;
 
-galleryContainer.addEventListener('click', event => {
-  event.preventDefault();
-
-  const target = event.target;
-
-  if (target.nodeName !== 'IMG') return;
-
-  const largeImageURL = target.dataset.source;
-
-  const instance = basicLightbox.create(`
-    <img src="${largeImageURL}" alt="${target.alt}" />
-  `);
-
-  instance.show();
+new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
 });
-console.log('JS is working!');

@@ -1,21 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Feedback Form</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page 3</title>
+    <link rel="stylesheet" href="/src/css/2-form.css" />
+
+    <script type="module" src="./js/2-form.js"></script>
   </head>
+
   <body>
-    <form class="feedback-form" autocomplete="off">
-      <label>
-        Email
-        <input type="email" name="email" autofocus />
-      </label>
-      <label>
-        Message
-        <textarea name="message" rows="8"></textarea>
-      </label>
-      <button type="submit">Submit</button>
-    </form>
-    <script type="module" src="/src/js/2-form.js"></script>
+    <section class="container">
+      <p><a href="./index.html">Go back</a></p>
+
+      <form class="feedback-form" autocomplete="off">
+        <label>
+          Email
+          <input type="email" name="email" autofocus />
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="8"></textarea>
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
   </body>
 </html>

@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import { glob } from 'glob';
+import path from 'path';
 import injectHTML from 'vite-plugin-html-inject';
 import FullReload from 'vite-plugin-full-reload';
 import SortCss from 'postcss-sort-media-queries';
@@ -9,24 +9,24 @@ export default defineConfig(({ command }) => {
     define: {
       [command === 'serve' ? 'global' : '_global']: {},
     },
-    root: 'src',
+    root: '.',
     build: {
       sourcemap: true,
       rollupOptions: {
-        input: glob.sync('./src/*.html'),
+        input: path.resolve(__dirname, 'public/index.html'),
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
               return 'vendor';
             }
           },
-          entryFileNames: chunkInfo => {
+          entryFileNames(chunkInfo) {
             if (chunkInfo.name === 'commonHelpers') {
               return 'commonHelpers.js';
             }
             return '[name].js';
           },
-          assetFileNames: assetInfo => {
+          assetFileNames(assetInfo) {
             if (assetInfo.name && assetInfo.name.endsWith('.html')) {
               return '[name].[ext]';
             }
@@ -34,12 +34,12 @@ export default defineConfig(({ command }) => {
           },
         },
       },
-      outDir: '../dist',
+      outDir: 'dist',
       emptyOutDir: true,
     },
     plugins: [
       injectHTML(),
-      FullReload(['./src/**/**.html']),
+      FullReload(['./src/**/*.html', './public/**/*.html']),
       SortCss({
         sort: 'mobile-first',
       }),
